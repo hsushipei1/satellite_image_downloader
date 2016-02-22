@@ -24,3 +24,6 @@ $ python satel_img_downloader.py [ImageCategory] [StartTime] [EndTime] [Director
 `StartTime & EndTime`: Start time and end time of images in a row. The format is yyyymmddHHMM where yyyy is year(like 2016); mm is month; dd is day; HH is hour; MM us minute. For example: 201602041250
 
 `DirectoryName`: Create a new directory and downloaded image will be saved into it.
+
+## Applications
+You can use job scheduler program (like Cron or simply shell scripting) to control SID to download images regularly.
