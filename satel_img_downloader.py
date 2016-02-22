@@ -1,7 +1,7 @@
 __author__ = 'hsushipei'
 from datetime import datetime, timedelta
 from urllib import urlretrieve
-import sys
+import sys, os, shutil
 
 
 def cmd_argument():
@@ -9,13 +9,15 @@ def cmd_argument():
     # output: "input_img_cat": human readable img category insert by user
     #         "starttime": start time
     #         "endtime": end time
+    #         "save_desti": directory to save images
 
     arg_numbers = len(sys.argv)
     input_img_cat = sys.argv[1]
     starttime = sys.argv[2]
     endtime = sys.argv[3]
+    dirName_to_save = sys.argv[4]
 
-    return input_img_cat,starttime,endtime
+    return input_img_cat, starttime, endtime, dirName_to_save
 
 def convert_to_datetime(complete_time):
     # Convert raw time format yyyymmddHHMM to datetime object.
@@ -64,10 +66,22 @@ def img_category( human_readable_cat ):
     elif (human_readable_cat == "HB"):
         return "High resolution-Black and white","HS1O"
 
+# check for arguments
+if (len(sys.argv) != 5):
+    print("Argument is incomplete")
+    quit()
+
+# create directory and cd into it to save downloaded images
+dirName = cmd_argument()[3]
+dirAbsPath = "/".join(((os.getcwd()),dirName))  # get absolute path to the directory
+os.mkdir(dirAbsPath)  # create the directory
+os.chdir(dirAbsPath)  # cd into it
+
 # obtain start and end time from cmd line argument
 start_time = cmd_argument()[1]
 end_time = cmd_argument()[2]
 img_cat_for_url = img_category(cmd_argument()[0])[1]
+humanRd_img_cat_for_filename = img_category(cmd_argument()[0])[0]
 
 # convert raw time format that user input to datetime object
 start_time_dateT = convert_to_datetime(start_time)
@@ -87,18 +101,10 @@ while (each_img_time != end_time_dateT):
     img_url = "http://www.cwb.gov.tw/V7/observe/satellite/Data/%s/%s-%s.jpg" %(img_cat_for_url,\
                                                                                img_cat_for_url,\
                                                                                time_for_filename)
-    print(img_url)
+    img_filename ="%s_%s.jpg" %(humanRd_img_cat_for_filename, time_for_filename)
+    urlretrieve(img_url, img_filename)
 
-    """
-    img_filename = "%s_%s-%s-%s-%s-%s" %(img_cat,\
-                                         each_img_time_tuple[0],\
-                                         each_img_time_tuple[1],\
-                                         each_img_time_tuple[2],\
-                                         each_img_time_tuple[3],\
-                                         each_img_time_tuple[4])
-
-    print(img_filename)
-    """
-    #urlretrieve(")
+    print("Image %s downloaded.") %(img_filename)
 
     n = n + 1
+
