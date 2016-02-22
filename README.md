@@ -15,6 +15,6 @@ $ git clone https://github.com/hsushipei1/satellite_image_downloader.git
 ## How to run
 Launch terminal(or cmd for windows users) and then type
 ```
-$ python satel_img_downloader.py *arguments
+$ python satel_img_downloader.py <arguments>
 ```
-
+*<arguments>
