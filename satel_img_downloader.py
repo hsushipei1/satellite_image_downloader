@@ -32,41 +32,42 @@ def convert_to_datetime(complete_time):
 
 def img_category( human_readable_cat ):
     if (human_readable_cat == "GF"):
-        return "Global-Full color",s0p
+        return "Global-Full color","s0p"
     elif (human_readable_cat == "GV"):
-        return "Global-Visible",sco
+        return "Global-Visible","sco"
     elif (human_readable_cat == "GI"):
-        return "Global-Enhanced IR",s0q
+        return "Global-Enhanced IR","s0q"
     elif (human_readable_cat == "GB"):
-        return "Global-Black and white",s0o
+        return "Global-Black and white","s0o"
     elif (human_readable_cat == "EF"):
-        return "East Asia-Full color",s1p
+        return "East Asia-Full color","s1p"
     elif (human_readable_cat == "EV"):
-        return "East Asia-Visible",sao
+        return "East Asia-Visible","sao"
     elif (human_readable_cat == "EI"):
-        return "East Asia-Enhanced IR",s1q
+        return "East Asia-Enhanced IR","s1q"
     elif (human_readable_cat == "EB"):
-        return "East Asia-Black and white",s1o
+        return "East Asia-Black and white","s1o"
     elif (human_readable_cat == "TF"):
-        return "Taiwan-Full color",s3p
+        return "Taiwan-Full color","s3p"
     elif (human_readable_cat == "TV"):
-        return "Taiwan-Visible",sbo
+        return "Taiwan-Visible","sbo"
     elif (human_readable_cat == "TI"):
-        return "Taiwan-Enhanced IR",s3q
+        return "Taiwan-Enhanced IR","s3q"
     elif (human_readable_cat == "TB"):
-        return "Taiwan-Black and white",s3o
+        return "Taiwan-Black and white","s3o"
     elif (human_readable_cat == "HF"):
-        return "High resolution-Full color",HS1P
+        return "High resolution-Full color","HS1P"
     elif (human_readable_cat == "HV"):
-        return "High resolution-Visible",HSAO
+        return "High resolution-Visible","HSAO"
     elif (human_readable_cat == "HI"):
-        return "High resolution-Enhanced IR",HS1Q
+        return "High resolution-Enhanced IR","HS1Q"
     elif (human_readable_cat == "HB"):
-        return "High resolution-Black and white",HS1O
+        return "High resolution-Black and white","HS1O"
 
 # obtain start and end time from cmd line argument
 start_time = cmd_argument()[1]
 end_time = cmd_argument()[2]
+img_cat_for_url = img_category(cmd_argument()[0])[1]
 
 # convert raw time format that user input to datetime object
 start_time_dateT = convert_to_datetime(start_time)
@@ -79,16 +80,25 @@ while (each_img_time != end_time_dateT):
     time_increment = n * 10
     each_img_time = start_time_dateT + timedelta(minutes = time_increment)
 
-    # convert datetime object to struct_time
-    each_img_time_tuple = each_img_time.timetuple()
+    # convert datetime object to ISO 8601 time representation(string)
+    time_for_filename = each_img_time.strftime("%Y-%m-%d-%H-%M")
 
     # retrieve img from CWB
+    img_url = "http://www.cwb.gov.tw/V7/observe/satellite/Data/%s/%s-%s.jpg" %(img_cat_for_url,\
+                                                                               img_cat_for_url,\
+                                                                               time_for_filename)
+    print(img_url)
 
-    urlretrieve("http://www.cwb.gov.tw/V7/observe/satellite/Data/s1q/s1q-2016-02-22-13-20.jpg")
+    """
+    img_filename = "%s_%s-%s-%s-%s-%s" %(img_cat,\
+                                         each_img_time_tuple[0],\
+                                         each_img_time_tuple[1],\
+                                         each_img_time_tuple[2],\
+                                         each_img_time_tuple[3],\
+                                         each_img_time_tuple[4])
 
-
-    print "%d %d %d %d %d" %(each_img_time_tuple[0], each_img_time_tuple[1], \
-                            each_img_time_tuple[2], each_img_time_tuple[3], \
-                            each_img_time_tuple[4])
+    print(img_filename)
+    """
+    #urlretrieve(")
 
     n = n + 1
