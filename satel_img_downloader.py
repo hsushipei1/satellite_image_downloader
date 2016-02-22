@@ -19,6 +19,21 @@ def cmd_argument():
 
     return input_img_cat, starttime, endtime, dirName_to_save
 
+def help_message():
+    # show how to use the program.
+    print("Usage: satellite_img_downloader [ImageCategory] [StartTime] [EndTime] [DirectoryName]")
+    print(" ")
+    print("*ImageCategory: REGION+COLOR. REGION: Global->G; East Asia->E; Taiwan->T; High resolution->H. COLOR: Full color->F; Visible->V; Enhanced IR->I; Black white->B. e.g. GV")
+    print("*Start and End time: yyyymmddHHMM. yyyy->year; mm-> month; dd->day; HH->hour; MM->minute. e.g. 201602041150")
+    print("*DirectoryName: Create a new directory and downloaded image will be saved into it.")
+
+def check_for_arguments(number_of_arguments):
+    # Check if the argument is correct
+    if (number_of_arguments != 5):
+        print("Error: Argument is incomplete!")
+        help_message()
+        quit()
+
 def convert_to_datetime(complete_time):
     # Convert raw time format yyyymmddHHMM to datetime object.
     # input: yyyymmddHHMM
@@ -66,10 +81,12 @@ def img_category( human_readable_cat ):
     elif (human_readable_cat == "HB"):
         return "High resolution-Black and white","HS1O"
 
+
+
+
+
 # check for arguments
-if (len(sys.argv) != 5):
-    print("Argument is incomplete")
-    quit()
+check_for_arguments(len(sys.argv))
 
 # create directory and cd into it to save downloaded images
 dirName = cmd_argument()[3]
