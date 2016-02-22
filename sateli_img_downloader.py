@@ -25,7 +25,37 @@ def convert_to_datetime(complete_time):
 
 def img_category( human_readable_cat ):
     if (human_readable_cat == "GF"):
-
+        return "Global-Full color",s0p
+    elif (human_readable_cat == "GV"):
+        return "Global-Visible",sco
+    elif (human_readable_cat == "GI"):
+        return "Global-Enhanced IR",s0q
+    elif (human_readable_cat == "GB"):
+        return "Global-Black and white",s0o
+    elif (human_readable_cat == "EF"):
+        return "East Asia-Full color",s1p
+    elif (human_readable_cat == "EV"):
+        return "East Asia-Visible",sao
+    elif (human_readable_cat == "EI"):
+        return "East Asia-Enhanced IR",s1q
+    elif (human_readable_cat == "EB"):
+        return "East Asia-Black and white",s1o
+    elif (human_readable_cat == "TF"):
+        return "Taiwan-Full color",s3p
+    elif (human_readable_cat == "TV"):
+        return "Taiwan-Visible",sbo
+    elif (human_readable_cat == "TI"):
+        return "Taiwan-Enhanced IR",s3q
+    elif (human_readable_cat == "TB"):
+        return "Taiwan-Black and white",s3o
+    elif (human_readable_cat == "HF"):
+        return "High resolution-Full color",HS1P
+    elif (human_readable_cat == "HV"):
+        return "High resolution-Visible",HSAO
+    elif (human_readable_cat == "HI"):
+        return "High resolution-Enhanced IR",HS1Q
+    elif (human_readable_cat == "HB"):
+        return "High resolution-Black and white",HS1Oi
 
 
 start_time = 201602041250
