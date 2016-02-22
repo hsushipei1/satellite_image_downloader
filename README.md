@@ -18,5 +18,7 @@ Launch terminal(or cmd for windows users) and then type
 $ python satel_img_downloader.py [ImageCategory] [StartTime] [EndTime] [DirectoryName]
 ```
 `ImageCategory`: letter combination of REGION and COLOR. REGION: Global->G; East Asia->E; Taiwan->T; High resolution->H. COLOR: COLOR: Full color->F; Visible->V; Enhanced IR->I; Black white->B. For example: GV
+
 `StartTime & EndTime`: Start time and end time of images in a row. The format is yyyymmddHHMM where yyyy is year(like 2016); mm is month; dd is day; HH is hour; MM us minute. For example: 201602041250
+
 `DirectoryName`: Create a new directory and downloaded image will be saved into it.
