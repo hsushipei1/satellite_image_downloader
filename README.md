@@ -1,2 +1,2 @@
-# satellite_image_downloader
-Download satellite image from CWB
+# satellite_image_downloader(SID)
+Download satellite image in a row from CWB. 
