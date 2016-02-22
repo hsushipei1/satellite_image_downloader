@@ -3,12 +3,19 @@ from datetime import datetime, timedelta
 from urllib import urlretrieve
 import sys
 
-"""
+
 def cmd_argument():
-    # Show usage of this program if user insert help
-    if ( (sys.argv[1] == "--help") or (sys.argv[1] == "-h") ):
-        print("Command line arguments: [imageCategory] [startTime] [endTime]")
-"""
+    # Deal with command line argument
+    # output: "input_img_cat": human readable img category insert by user
+    #         "starttime": start time
+    #         "endtime": end time
+
+    arg_numbers = len(sys.argv)
+    input_img_cat = sys.argv[1]
+    starttime = sys.argv[2]
+    endtime = sys.argv[3]
+
+    return input_img_cat,starttime,endtime
 
 def convert_to_datetime(complete_time):
     # Convert raw time format yyyymmddHHMM to datetime object.
@@ -55,13 +62,13 @@ def img_category( human_readable_cat ):
     elif (human_readable_cat == "HI"):
         return "High resolution-Enhanced IR",HS1Q
     elif (human_readable_cat == "HB"):
-        return "High resolution-Black and white",HS1Oi
+        return "High resolution-Black and white",HS1O
 
+# obtain start and end time from cmd line argument
+start_time = cmd_argument()[1]
+end_time = cmd_argument()[2]
 
-start_time = 201602041250
-end_time = 201602051250
-
-# convert raw time formate that user input to datetime object
+# convert raw time format that user input to datetime object
 start_time_dateT = convert_to_datetime(start_time)
 end_time_dateT = convert_to_datetime(end_time)
 
