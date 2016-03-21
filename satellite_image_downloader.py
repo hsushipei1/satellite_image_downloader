@@ -9,27 +9,30 @@ def cmd_argument():
     # output: "input_img_cat": human readable img category insert by user
     #         "starttime": start time
     #         "endtime": end time
+    #         "timeintv": time interval
     #         "save_desti": directory to save images
 
     arg_numbers = len(sys.argv)
     input_img_cat = sys.argv[1]
     starttime = sys.argv[2]
     endtime = sys.argv[3]
-    dirName_to_save = sys.argv[4]
+    timeintv = sys.argv[4]
+    dirName_to_save = sys.argv[5]
 
-    return input_img_cat, starttime, endtime, dirName_to_save
+    return input_img_cat, starttime, endtime, timeintv, dirName_to_save
 
 def help_message():
     # show how to use the program.
-    print("Usage: satellite_img_downloader [ImageCategory] [StartTime] [EndTime] [DirectoryName]")
+    print("Usage: satellite_img_downloader [ImageCategory] [StartTime] [EndTime] [TimeInterval] [DirectoryName]")
     print(" ")
     print("*ImageCategory: REGION+COLOR. REGION: Global->G; East Asia->E; Taiwan->T; High resolution->H. COLOR: Full color->F; Visible->V; Enhanced IR->I; Black white->B. e.g. GV")
     print("*Start and End time: yyyymmddHHMM. yyyy->year; mm-> month; dd->day; HH->hour; MM->minute. e.g. 201602041150")
+    print("TimeInterval: Time interval. Must be multiples of 10.")
     print("*DirectoryName: Create a new directory and downloaded image will be saved into it.")
 
 def check_for_arguments(number_of_arguments):
     # Check if the argument is correct
-    if (number_of_arguments != 5):
+    if (number_of_arguments != 6):
         print("Error: Argument is incomplete!")
         help_message()
         quit()
@@ -89,7 +92,7 @@ def img_category( human_readable_cat ):
 check_for_arguments(len(sys.argv))
 
 # create directory and cd into it to save downloaded images
-dirName = cmd_argument()[3]
+dirName = cmd_argument()[4]
 dirAbsPath = "/".join(((os.getcwd()),dirName))  # get absolute path to the directory
 os.mkdir(dirAbsPath)  # create the directory
 os.chdir(dirAbsPath)  # cd into it
@@ -106,9 +109,10 @@ end_time_dateT = convert_to_datetime(end_time)
 
 n=0
 each_img_time = start_time_dateT
-while (each_img_time != end_time_dateT):
+while (each_img_time < end_time_dateT):
+
     # increase start time by increment of 10 min
-    time_increment = n * 10
+    time_increment = n * int(cmd_argument()[3])
     each_img_time = start_time_dateT + timedelta(minutes = time_increment)
 
     # convert datetime object to ISO 8601 time representation(string)
